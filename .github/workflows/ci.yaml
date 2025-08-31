@@ -4,13 +4,32 @@ on:
   push:
     branches:
       - main
+  pull_request:               # also test PRs before merging
 
 jobs:
-  hello-job:
+  test-job:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9] # Task 2: single version (matrix lets us expand later)
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3    # gets your repo files into the runner
+        uses: actions/checkout@v3
 
-      - name: Say hello
-        run: echo "Hello, CI with GitHub Actions!"
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        # If requirements.txt does not exist or is empty, this won't break the build
+        run: |
+          if [ -f requirements.txt ] && [ -s requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            echo "No dependencies to install."
+          fi
+
+      - name: Run tests
+        run: python -m unittest discover -v
