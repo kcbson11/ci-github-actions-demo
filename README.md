@@ -24,3 +24,10 @@ This repository demonstrates Continuous Integration (CI) with GitHub Actions.
 ## How to Run Tests Locally
 ```bash
 python -m unittest discover -v
+
+## Bonus Task: Self-Hosted Runner
+- Installed a GitHub Actions runner on my Windows 10 machine.
+- Configured it with the token from GitHub.
+- Created a workflow (`selfhosted.yml`) that runs on `self-hosted`.
+- Verified the job ran locally on my machine instead of GitHub’s hosted runner.
+
