@@ -1,0 +1,12 @@
+name: Self-Hosted Runner Test
+
+on:
+  workflow_dispatch:   # allows you to trigger it manually
+
+jobs:
+  selfhosted-job:
+    runs-on: self-hosted   # this tells GitHub to use YOUR runner
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test on self-hosted runner
+        run: echo "This job is running on my Windows self-hosted runner!"
